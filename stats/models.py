@@ -1,10 +1,14 @@
 from django.db import models
 from django.utils.text import slugify
+from django.urls import reverse
 
 
 class Statistic(models.Model):
     name = models.CharField(max_length=200)
     slug = models.SlugField(blank=True)
+
+    def get_absolute_url(self):
+        return reverse("stats:dashboard", kwargs={"slug": self.slug})
 
     @property
     def data(self):
